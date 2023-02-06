@@ -21,7 +21,6 @@ class ChatMessage extends StatelessWidget {
           children: [
             Text(sender, style: Theme.of(context).textTheme.subtitle1),
             Container(
-              margin: ,
             ),
           ],
         ),),
