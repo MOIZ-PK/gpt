@@ -14,7 +14,15 @@ class Screen extends StatefulWidget {
 class _ScreenState extends State<Screen> {
 //Text controller
   final TextEditingController _controller = TextEditingController();
-  final List<ChatMessage> _message = [];
+  final List<ChatMessage> _messages = [];
+  //send button
+  void _sendMessage() {
+    ChatMessage _message = ChatMessage(text: _controller.text, sender: "user");
+    //now insert it to messgaes
+    setState(() {
+      _messages.insert(0, _message);
+    });
+  }
 
   Widget _buildTextComposer() {
     return Row(
@@ -22,6 +30,7 @@ class _ScreenState extends State<Screen> {
         Expanded(
           child: TextField(
             controller: _controller,
+            onSubmitted: (value) => _sendMessage(),
             decoration: const InputDecoration.collapsed(
               hintText: "Ask Me anything",
               hintStyle: TextStyle(color: Colors.blueGrey),
@@ -30,7 +39,7 @@ class _ScreenState extends State<Screen> {
           ),
         ),
         IconButton(
-          onPressed: () {},
+          onPressed: () => _sendMessage(),
           icon: const Icon(Icons.send_rounded),
         ),
       ],
@@ -50,9 +59,9 @@ class _ScreenState extends State<Screen> {
           Flexible(
             child: ListView.builder(
               reverse: true,
-              itemCount: _message.length,
+              itemCount: _messages.length,
               itemBuilder: (context, index) {
-                return _message[index];
+                return _messages[index];
               },
             ),
           ),
